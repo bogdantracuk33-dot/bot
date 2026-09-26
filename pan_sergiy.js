@@ -160,35 +160,54 @@ function handleChatMessage(event) {
 
   switch (command) {
     case '!тг':
-      sendChatMessage(` 📢 Наш Вусатий Telegram-канал: https://t.me/gorb_sergiy`, messageId);
+      sendChatMessage(`📢 Наш Вусатий Telegram-канал: https://t.me/gorb_sergiy`, messageId);
       break;
 
     case '!інста':
-      sendChatMessage(` Вусатий інстаграм: https://www.instagram.com/gorb_sergiy/`, messageId);
-      break;
-
-      case '!ютуб':
-      sendChatMessage(` Вусатий ютуб: https://www.youtube.com/@gorb_sergiy`, messageId);
+      sendChatMessage(`Вусатий інстаграм: https://www.instagram.com/gorb_sergiy/`, messageId);
       break;
 
     case '!тікток':
-      sendChatMessage(` Вусатий ТікТок: https://www.tiktok.com/@gorb_sergiy`, messageId);
+      sendChatMessage(`Вусатий ТікТок: https://www.tiktok.com/@gorb_sergiy`, messageId);
+      break;
+
+    case '!ютуб':
+      sendChatMessage(`Вусатий YouTube: https://www.youtube.com/@gorb_sergiy`, messageId);
       break;
 
     case '!айкю': {
       if (onCooldown('!айкю', 10)) return;
       const iq = Math.floor(Math.random() * 150) + 50;
-      sendChatMessage(` 🧠 твій IQ сьогодні: ${iq}`, messageId);
+      sendChatMessage(`@${user} 🧠 твій IQ сьогодні: ${iq}`, messageId);
       break;
     }
 
     case '!команди':
-      sendChatMessage(` Доступні команди: !тг, !інста, !ютуб, !тікток, !айкю`, messageId);
+      sendChatMessage(`Доступні команди: !тг, !інста, !тікток, !ютуб, !айкю`, messageId);
       break;
 
     default:
       console.log(`⏭️ Команда "${command}" не розпізнана`);
   }
+}
+
+// 4.5 Автоматичні оголошення (по черзі кидає ТГ/Інсту/ТікТок/Ютуб через певний інтервал)
+const announcements = [
+  '📢 Наш Вусатий Telegram-канал: https://t.me/gorb_sergiy',
+  '📸 Вусатий інстаграм: https://www.instagram.com/gorb_sergiy/',
+  '🎵 Вусатий ТікТок: https://www.tiktok.com/@gorb_sergiy',
+  '▶️ Вусатий YouTube: https://www.youtube.com/@gorb_sergiy'
+];
+
+let announcementIndex = 0;
+const ANNOUNCEMENT_INTERVAL_MINUTES = 15; // онови це число, якщо треба частіше/рідше
+
+function startAnnouncements() {
+  setInterval(() => {
+    sendChatMessage(announcements[announcementIndex]);
+    announcementIndex = (announcementIndex + 1) % announcements.length;
+  }, ANNOUNCEMENT_INTERVAL_MINUTES * 60 * 1000);
+  console.log(`⏰ Автооголошення увімкнено, кожні ${ANNOUNCEMENT_INTERVAL_MINUTES} хв`);
 }
 
 // 5. Підключення до EventSub WebSocket
@@ -239,4 +258,6 @@ function connectWebSocket() {
   appAccessToken = await getAppAccessToken();
   botUserToken = await refreshBotUserToken();
   connectWebSocket();
+  startAnnouncements();
 })();
+
