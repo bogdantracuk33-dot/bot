@@ -158,9 +158,13 @@ function handleChatMessage(event) {
   const args = message.split(' ');
   const command = args.shift().toLowerCase();
 
-  switch (command) {
+   switch (command) {
     case '!тг':
       sendChatMessage(`📢 Наш Вусатий Telegram-канал: https://t.me/gorb_sergiy`, messageId);
+      break;
+
+      case '!донат':
+      sendChatMessage(`Підтримати вусатого: https://base.monobank.ua/g/Bys1hGZfGjC8XN`, messageId);
       break;
 
     case '!інста':
@@ -183,7 +187,7 @@ function handleChatMessage(event) {
     }
 
     case '!команди':
-      sendChatMessage(`Доступні команди: !тг, !інста, !тікток, !ютуб, !айкю`, messageId);
+      sendChatMessage(`Доступні команди: !тг, !інста, !тікток, !донат, !ютуб, !айкю`, messageId);
       break;
 
     default:
@@ -197,6 +201,7 @@ const announcements = [
   '📸 Вусатий інстаграм: https://www.instagram.com/gorb_sergiy/',
   '🎵 Вусатий ТікТок: https://www.tiktok.com/@gorb_sergiy',
   '▶️ Вусатий YouTube: https://www.youtube.com/@gorb_sergiy'
+  `💵Підтримати вусатого: https://base.monobank.ua/g/Bys1hGZfGjC8XN` 
 ];
 
 let announcementIndex = 0;
