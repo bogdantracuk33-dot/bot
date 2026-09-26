@@ -201,7 +201,7 @@ const announcements = [
   '📸 Вусатий інстаграм: https://www.instagram.com/gorb_sergiy/',
   '🎵 Вусатий ТікТок: https://www.tiktok.com/@gorb_sergiy',
   '▶️ Вусатий YouTube: https://www.youtube.com/@gorb_sergiy'
-  `💵Підтримати вусатого: https://base.monobank.ua/g/Bys1hGZfGjC8XN` 
+ 
 ];
 
 let announcementIndex = 0;
